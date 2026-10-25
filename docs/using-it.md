@@ -1,6 +1,6 @@
 # Using it
 
-In Claude Code and Cowork you won't think about it, because it runs on every message. Two
+In Claude Code and Cowork you won't think about it, because it runs on most messages. Two
 more ways to use it are one phrase away.
 
 | Way | How to start it | What you get |
@@ -15,8 +15,10 @@ more ways to use it are one phrase away.
 
 | App | When it rewrites |
 | --- | --- |
-| Claude Code (terminal, IDE, desktop Code tab) | Every message |
-| Cowork | Every message |
+| Claude Code (terminal, IDE, desktop Code tab) | Every message, except the ones listed below |
+| Cowork | Every message, except the ones listed below |
+| Codex CLI (new) | Every message, except the ones listed below |
+| Antigravity CLI, `agy` (new) | Every message, except the ones listed below |
 | Claude chat (web, desktop, mobile) | When a request looks short or vague, or when you ask |
 
 Claude chat doesn't run plugin hooks, and the hook is what makes it run on every message.
@@ -25,6 +27,30 @@ first:".
 
 See [Getting started](getting-started.md#your-first-message) for what a normal reply
 looks like.
+
+### When it skips the rewrite
+
+The hook looks at your message and decides how much to ask for. Claude still checks
+outside facts every time.
+
+| Your message | What happens |
+| --- | --- |
+| A slash command, like `/compact` | No rewrite. |
+| A short reply made of words like "yes", "ok", "continue", "go ahead" or "lgtm" | No rewrite. |
+| A single menu pick, like "2" or "b" | No rewrite. |
+| An automated message, like a background-task report or a teammate message | No rewrite. |
+| A long, structured prompt: 80 words or more, and several lines, a list or a code block | One "Taking this as: …" line instead of the rewrite block. |
+| Anything else | The full rewrite and Assumptions line. |
+
+Text you paste in a block doesn't count toward the length. "Fix this" plus a big paste
+is still a short prompt.
+
+The hook also doesn't send its full rules every time. You get them on the first message
+of a session. After that, Claude gets a one-line reminder. The full rules come back every
+25 messages, after `/compact` or `/clear`, and when you change the mode. In Antigravity
+CLI, the hook's words last only one turn, so it sends the full rules every turn.
+
+To change how much it does, see [Control and privacy](control-and-privacy.md#modes).
 
 ## Improve a prompt without running it
 
@@ -52,7 +78,7 @@ Developer's Guide on October 17, 2026.*
 
 ## Quiet fact-checking
 
-You don't have to ask for it. On every message, Claude checks outside facts before it
+You don't have to ask for it. On every message, even ones that skip the rewrite, Claude checks outside facts before it
 states them. These count as outside facts:
 
 - A version number, or "the latest version is …".

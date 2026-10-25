@@ -1,17 +1,18 @@
 {
   "name": "prompt-sharpener",
   "displayName": "Prompt Sharpener",
-  "version": "1.0.2",
-  "description": "Rewrites every request into a clear, complete prompt and shows it before Claude starts work, with the guesses it made listed underneath. Behind the scenes, it checks outside facts like versions, prices, commands and limits against current sources, and flags only the ones it couldn't confirm.",
+  "version": "1.1.0",
+  "description": "Rewrites every request into a clear, complete prompt and shows it before work starts, with its guesses listed underneath; skips the rewrite for commands, short replies and automated messages, and uses one line for prompts that are already detailed. Quietly checks outside facts like versions, prices, commands and limits against current sources and flags only the ones it couldn't confirm. Modes: full, brief, ground, off. Runs in Claude Code, Codex and Antigravity. Fork of DeezleSince74/prompt-sharpener.",
   "author": {
-    "name": "Derek Frempong"
+    "name": "Via Del Web",
+    "url": "https://github.com/salemaziel"
   },
-  "homepage": "https://github.com/DeezleSince74/prompt-sharpener",
-  "repository": "https://github.com/DeezleSince74/prompt-sharpener",
+  "homepage": "https://github.com/salemaziel/prompt-sharpener",
+  "repository": "https://github.com/salemaziel/prompt-sharpener",
   "icon": "./.claude-plugin/icon.png",
-  "documentationUrl": "https://github.com/DeezleSince74/prompt-sharpener#readme",
-  "supportUrl": "https://github.com/DeezleSince74/prompt-sharpener/issues",
-  "privacyPolicyUrl": "https://github.com/DeezleSince74/prompt-sharpener/blob/main/PRIVACY.md",
+  "documentationUrl": "https://github.com/salemaziel/prompt-sharpener#readme",
+  "supportUrl": "https://github.com/salemaziel/prompt-sharpener/issues",
+  "privacyPolicyUrl": "https://github.com/salemaziel/prompt-sharpener/blob/main/PRIVACY.md",
   "license": "MIT",
   "keywords": [
     "prompt",
@@ -20,6 +21,9 @@
     "fact-check",
     "grounding",
     "hooks",
-    "skills"
+    "skills",
+    "codex",
+    "antigravity",
+    "vdw"
   ]
 }

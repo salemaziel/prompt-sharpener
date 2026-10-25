@@ -1,5 +1,10 @@
 # Prompt Sharpener
 
+> **Via Del Web fork** of [DeezleSince74/prompt-sharpener](https://github.com/DeezleSince74/prompt-sharpener)
+> by Derek Frempong (MIT). This fork adds a smarter hook that skips commands and short replies,
+> sends its rules once per session, has `full`/`brief`/`ground`/`off` modes, and runs in Codex
+> and Antigravity too. See [CHANGELOG.md](CHANGELOG.md).
+
 A plugin for Claude Code, Cowork and Claude chat that does two things to your requests.
 In Claude Code and Cowork it runs on every message you send. In Claude chat it runs
 when your request looks short or vague, or when you ask it to (see [Where it runs](#where-it-runs)).
@@ -58,8 +63,37 @@ Then the finished post follows.
   link, and the date checked.
 - **Turn the rewrite off for one conversation:** ask Claude to stop showing the
   rewrite. Fact-checking keeps running.
+- **Change the mode:** `/prompt-sharpener:sharpen brief` (add `--global` for every
+  project). It applies from your next message.
 - **Turn it off everywhere:** disable Prompt Sharpener with `/plugin`. Turn it back on
   the same way.
+
+## Modes
+
+| Mode | What you see | Fact-checking |
+| --- | --- | --- |
+| `full` (default) | The rewrite block and Assumptions line. One "Taking this as" line for prompts that are already detailed; nothing for commands and short replies. | yes |
+| `brief` | One "Taking this as: ..." line | yes |
+| `ground` | No rewrite | yes |
+| `off` | Nothing; the hook adds no text | no |
+
+The mode comes from, highest first: the `PROMPT_SHARPENER_MODE` environment variable
+(fixed for the session), `<project>/.claude/prompt-sharpener.local.md`,
+`~/.claude/prompt-sharpener.local.md`, then `full`. In a project file `off` acts as `ground`,
+so a cloned repository can't switch off fact-checking. The files hold YAML frontmatter:
+
+```markdown
+---
+mode: brief          # full | brief | ground | off
+detail_words: 80     # this many words plus lines, a list or code = "already detailed"
+full_every: 25       # re-send the full rules every N messages (0 = never)
+---
+```
+
+The rewrite is skipped (fact-checking stays) for slash commands, replies made only of
+words like "yes", "ok", "continue", "go ahead", menu picks like "2", and automated
+messages such as background-task reports. To see what the hook decided for each message,
+set `PROMPT_SHARPENER_DEBUG_LOG=/path/to/log` before starting the session.
 
 ## Where it runs
 
@@ -68,20 +102,27 @@ Then the finished post follows.
 | Claude Code (terminal, IDE, desktop Code tab) | Every message |
 | Cowork | Every message |
 | Claude chat (web, desktop, mobile) | When a request looks short or vague, or when you ask: "sharpen this first" |
+| Codex CLI | Every message (`UserPromptSubmit` hook) |
+| Antigravity CLI (`agy`) | Every message; the rules are re-sent each turn, since agy keeps hook context for one turn only |
 
 Claude chat doesn't run plugin hooks, and the hook is what makes it run on every message.
 In chat, Claude uses the skill when it thinks it fits.
 
 ## Installing
 
-From the Claude plugin Directory: Prompt Sharpener is listed for Claude Code, Cowork and the Claude apps. Open the plugin browser, search for **Prompt Sharpener**, and install it.
-
-Or add this repository as a marketplace in Claude Code:
+This fork is published in the Via Del Web marketplace. In Claude Code:
 
 ```
-/plugin marketplace add DeezleSince74/prompt-sharpener
-/plugin install prompt-sharpener@prompt-sharpener
+/plugin marketplace add salemaziel/vdw-claude-plugins
+/plugin install prompt-sharpener@vdw
 ```
+
+If you also have the original from the Claude plugin Directory installed, disable it so the
+two hooks don't both run.
+
+Codex: `codex plugin marketplace add salemaziel/vdw-claude-plugins`, then
+`codex plugin add prompt-sharpener@vdw`. Antigravity: `agy plugin install <path-to-this-folder>`
+(it converts Claude Code plugins on install).
 
 Start a new session after installing, since a running session keeps the plugins it
 started with.
@@ -90,15 +131,17 @@ started with.
 
 | Part | What it does |
 | --- | --- |
-| `hooks/hooks.json` | Each time you submit a message (a `UserPromptSubmit` hook), prints `hooks/rules.txt` with `cat`. |
-| `hooks/rules.txt` | The two short directions above, as plain text. Nothing reads your input, files or network. |
+| `hooks/hooks.json` | Runs `hooks/sharpen.sh` each time you submit a message (`UserPromptSubmit`), and `sharpen.sh reset` after `/compact` or `/clear` (`SessionStart`). |
+| `hooks/sharpen.sh` | Reads the message locally, picks the mode, and prints the full rules (first message of a session), a one-line reminder, or a fact-checking-only line. Keeps a tiny per-session counter in `~/.local/state/prompt-sharpener/`. |
+| `hooks/rules.txt`, `rules-brief.txt`, `rules-ground.txt` | The directions for `full`, `brief` and `ground` mode, as plain text. |
 | `skills/prompt-sharpener/SKILL.md` | The full method: how to find what you really want, when to ask instead of guess, rewrite techniques, and how to ground facts quietly. |
 | `skills/prompt-sharpener/references/` | Longer guides: general prompting techniques, coding prompts, and the grounding checklist with the verify-mode report. |
-| `tests/test-hook.sh` | Checks the hook's output, with no model calls. |
+| `skills/sharpen/SKILL.md` | `/prompt-sharpener:sharpen`: shows or changes the mode. |
+| `.codex-plugin/plugin.json` | The Codex manifest; it uses the same skills and hooks. |
+| `tests/test-hook.sh` | Checks the hook's decisions for each kind of message, mode and session state, with no model calls. |
 
-The hook works on macOS, Linux and Windows with nothing extra to install. Its one command,
-`cat`, reads the rules file in Bash and in Windows PowerShell alike, so Windows users
-don't need Git for Windows.
+The hook needs bash and `jq` (macOS, Linux, or Windows with Git Bash or WSL). Without `jq`,
+or if anything goes wrong, it prints the full rules, as the original `cat` hook did.
 
 Fact-checking uses whatever search or fetch tools your session has. With none, Claude
 still answers but marks the facts it couldn't check as unverified.

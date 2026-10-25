@@ -4,34 +4,47 @@
 
 | Item | Details |
 | --- | --- |
-| Claude Code | In the terminal, the desktop app's Code tab, or an editor extension. |
-| Your computer | macOS, Linux or Windows. Nothing else to install: on Windows the hook runs with or without Git for Windows. |
+| Claude Code | In the terminal, the desktop app's Code tab, or an editor extension. Codex CLI and Antigravity CLI also work (see below). |
+| Your computer | macOS or Linux, with `bash` and `jq` installed. On Windows, use Git Bash or WSL. Native PowerShell alone is no longer supported. |
 | Search tools | Optional. Fact-checking uses whatever web search or fetch tools your session already has. |
 | An account | None. The plugin has no server and needs no sign-in. |
 
 ## Install it
 
-**From the plugin Directory.** Prompt Sharpener is listed in Anthropic's plugin
-Directory for Claude Code, Cowork and the Claude apps. Open the plugin browser, search
-for **Prompt Sharpener**, and install it.
-
-**From GitHub.** In a Claude Code session, type:
+**From GitHub.** This fork is published in the `vdw` marketplace. In a Claude Code
+session, type:
 
 ```
-/plugin marketplace add DeezleSince74/prompt-sharpener
-/plugin install prompt-sharpener@prompt-sharpener
+/plugin marketplace add salemaziel/vdw-claude-plugins
+/plugin install prompt-sharpener@vdw
 ```
 
-The first command adds this repository as a marketplace, which is a list of plugins
-Claude Code can install from. The second installs the plugin from it. From a terminal,
-the same steps are:
+The first command adds the marketplace, which is a list of plugins Claude Code can
+install from. The second installs the plugin from it. From a terminal, the same steps are:
 
 ```bash
-claude plugin marketplace add DeezleSince74/prompt-sharpener
+claude plugin marketplace add salemaziel/vdw-claude-plugins
 ```
 
 ```bash
-claude plugin install prompt-sharpener@prompt-sharpener
+claude plugin install prompt-sharpener@vdw
+```
+
+**In Codex CLI (new).** Add the same marketplace, then install the plugin:
+
+```bash
+codex plugin marketplace add salemaziel/vdw-claude-plugins
+```
+
+```bash
+codex plugin add prompt-sharpener@vdw
+```
+
+**In Antigravity CLI, `agy` (new).** `agy` converts Claude Code plugins when it installs
+them. Point it at the plugin's folder:
+
+```bash
+agy plugin install <path-to-plugin-folder>
 ```
 
 ![Terminal output of the marketplace add, install and list commands, ending in "Status: enabled"](images/install.png)
@@ -68,5 +81,8 @@ families with kids". Claude redoes the work with the fix.
 
 **For very short requests,** like "what time is it in Tokyo", the rewrite shrinks to one
 line that starts with "Taking this as:".
+
+**For short replies and commands,** like "yes", "continue", "2" or `/compact`, there's no
+rewrite at all. See [Using it](using-it.md#when-it-skips-the-rewrite).
 
 Next: [Using it](using-it.md)

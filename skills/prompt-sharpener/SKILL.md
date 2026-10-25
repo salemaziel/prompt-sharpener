@@ -257,6 +257,14 @@ request looks simple; the rewrite is where the assumptions surface.
 If the person asks to turn the rewrite off for this conversation, stop showing
 it from then on. Grounding continues; it is invisible anyway.
 
+**Hook lines and modes.** The hook sends its full rules once per session, then a
+short `Prompt Sharpener:` line on each message. Follow that line for that message:
+it may say to skip the rewrite (a slash command, a short reply such as "yes", or
+an automated message) or to use the one-line `Taking this as: ...` form (a prompt
+that is already detailed). In `brief` mode, always use the one-line form; in
+`ground` mode, don't rewrite at all. Grounding applies in every mode except `off`.
+To change the mode, the person runs `/prompt-sharpener:sharpen`.
+
 ## Behind-the-scenes grounding
 
 This runs in every mode, whenever the answer depends on a fact that lives

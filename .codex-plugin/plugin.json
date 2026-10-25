@@ -1,0 +1,33 @@
+{
+  "name": "prompt-sharpener",
+  "version": "1.1.0",
+  "description": "Rewrites every request into a clear, complete prompt and shows it before work starts, with its guesses listed underneath; skips the rewrite for commands, short replies and automated messages, and uses one line for prompts that are already detailed. Quietly checks outside facts like versions, prices, commands and limits against current sources and flags only the ones it couldn't confirm. Modes: full, brief, ground, off. Runs in Claude Code, Codex and Antigravity. Fork of DeezleSince74/prompt-sharpener.",
+  "author": {
+    "name": "Via Del Web",
+    "url": "https://github.com/salemaziel"
+  },
+  "homepage": "https://github.com/salemaziel/prompt-sharpener",
+  "repository": "https://github.com/salemaziel/prompt-sharpener",
+  "license": "MIT",
+  "keywords": [
+    "prompt",
+    "prompt-engineering",
+    "rewrite",
+    "fact-check",
+    "grounding",
+    "hooks",
+    "skills",
+    "codex",
+    "antigravity",
+    "vdw"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "Prompt Sharpener",
+    "shortDescription": "Shows each request rewritten as a clear prompt before work starts, and quietly fact-checks ($prompt-sharpener:sharpen to switch modes)",
+    "longDescription": "Rewrites every request into a clear, complete prompt and shows it before work starts, with its guesses listed underneath; skips the rewrite for commands, short replies and automated messages, and uses one line for prompts that are already detailed. Quietly checks outside facts like versions, prices, commands and limits against current sources and flags only the ones it couldn't confirm. Modes: full, brief, ground, off. Runs in Claude Code, Codex and Antigravity. Fork of DeezleSince74/prompt-sharpener.",
+    "developerName": "Via Del Web",
+    "category": "Productivity"
+  }
+}

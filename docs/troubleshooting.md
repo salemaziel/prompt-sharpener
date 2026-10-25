@@ -10,8 +10,26 @@
 - Start a new session. Running sessions keep the plugins they started with.
 - Run `/plugin` and check that Prompt Sharpener is enabled.
 - Check that you didn't ask Claude to stop the rewrite earlier in this conversation.
-- Make sure you're on version 1.0.2 or later (`claude plugin list` shows it). Version 1.0.0
-  needed Git for Windows to run the hook on Windows.
+- Check that `bash` and `jq` are installed. The hook needs both. On Windows, use Git Bash
+  or WSL. Native PowerShell alone isn't supported. If `jq` is missing, the hook still
+  prints the full rules, but install it to get the smart filter and the once-per-session
+  behavior.
+- Check your mode with `/prompt-sharpener:sharpen status`. In `ground` and `off` mode,
+  there's no rewrite.
+
+### The rewrite doesn't show for short replies or commands
+
+That's by design. The hook skips the rewrite for slash commands, short replies like "yes"
+or "continue", single menu picks like "2", and automated messages. Claude still checks
+facts. To see the rewrite on everything, set the mode with
+`/prompt-sharpener:sharpen full`. See [Modes](control-and-privacy.md#modes).
+
+### I want to see what the hook decided
+
+Set `PROMPT_SHARPENER_DEBUG_LOG=<path>` before you start your CLI, for example
+`PROMPT_SHARPENER_DEBUG_LOG=/tmp/sharpener.log`. The hook adds one line to that file for
+each message: the time, the event, the mode, what it decided, and the first 80
+characters of your message. It's off unless you set it. Delete the file when you're done.
 
 ### I asked for a better prompt, and Claude ran it instead
 
@@ -26,7 +44,9 @@ facts instead of flagging them.
 ### The rewrite feels like too much for quick questions
 
 For a short request, the rewrite is a single "Taking this as: …" line. If you'd rather
-not see it at all for a while, ask Claude to stop showing it for this conversation.
+not see it at all for a while, ask Claude to stop showing it for this conversation. To
+change it for good, use `/prompt-sharpener:sharpen brief` or `ground`. Very short
+replies and commands already skip it.
 
 ### Another plugin also asks for a rewrite
 
@@ -36,7 +56,8 @@ you'll see two.
 ## FAQ
 
 **Does it slow Claude down?**
-The hook only prints a short block of fixed text, so it adds almost no time. The
+The hook only reads your message and prints a short block of text, so it adds almost no
+time. After the first message of a session, it usually prints just one line. The
 rewrite adds a few lines to the start of each reply. Fact-checks take time only when a
 reply depends on an outside fact.
 
@@ -49,9 +70,10 @@ Yes. The plugin never overrides what you or your organization tell Claude.
 
 **Does it work in the desktop app and editor extensions?**
 It works anywhere Claude Code runs plugins: the terminal, the desktop app's Code tab,
-and the editor extensions.
+and the editor extensions. It also works in Codex CLI and Antigravity CLI, which is new
+(see [Getting started](getting-started.md#install-it)).
 
 **Where do I report a bug?**
 Open an issue at
-[github.com/DeezleSince74/prompt-sharpener/issues](https://github.com/DeezleSince74/prompt-sharpener/issues).
+[github.com/salemaziel/prompt-sharpener/issues](https://github.com/salemaziel/prompt-sharpener/issues).
 For a security problem, use the **Security** tab instead.
