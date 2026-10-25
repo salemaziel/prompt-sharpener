@@ -40,12 +40,15 @@ codex plugin marketplace add salemaziel/vdw-claude-plugins
 codex plugin add prompt-sharpener@vdw
 ```
 
-**In Antigravity CLI, `agy` (new).** `agy` converts Claude Code plugins when it installs
-them. Point it at the plugin's folder:
+**In Antigravity CLI, `agy` (new).** The plugin's folder has its own agy manifest
+(`plugin.json`) and hooks file (`hooks.json`). Point `agy` at the folder:
 
 ```bash
 agy plugin install <path-to-plugin-folder>
 ```
+
+This was checked with agy 1.4.7: it keeps the root `hooks.json` (skills 2, hooks 1).
+Antigravity didn't work in 1.1.0 and is fixed in 1.2.0.
 
 ![Terminal output of the marketplace add, install and list commands, ending in "Status: enabled"](images/install.png)
 *Real install output, October 17, 2026.*

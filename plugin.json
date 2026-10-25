@@ -1,0 +1,5 @@
+{
+  "name": "prompt-sharpener",
+  "version": "1.2.0",
+  "description": "Antigravity (agy) manifest. Rewrites each request into a clear prompt shown before work starts, and quietly checks outside facts. Claude Code reads .claude-plugin/plugin.json and Codex .codex-plugin/plugin.json instead."
+}

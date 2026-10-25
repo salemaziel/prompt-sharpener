@@ -19,9 +19,10 @@
 
 ### The rewrite doesn't show for short replies or commands
 
-That's by design. The hook skips the rewrite for slash commands, short replies like "yes"
-or "continue", single menu picks like "2", and automated messages. Claude still checks
-facts. To see the rewrite on everything, set the mode with
+That's by design. The hook skips the rewrite for slash commands (in Codex, also
+`$skill-name` commands), short replies like "yes" or "continue", single menu picks like
+"2", and automated messages. Em-dashes, curly quotes and emoji don't count as words, so
+"ok — thanks" or a thumbs-up is still a short reply. Claude still checks facts. To see the rewrite on everything, set the mode with
 `/prompt-sharpener:sharpen full`. See [Modes](control-and-privacy.md#modes).
 
 ### I want to see what the hook decided
@@ -71,7 +72,9 @@ Yes. The plugin never overrides what you or your organization tell Claude.
 **Does it work in the desktop app and editor extensions?**
 It works anywhere Claude Code runs plugins: the terminal, the desktop app's Code tab,
 and the editor extensions. It also works in Codex CLI and Antigravity CLI, which is new
-(see [Getting started](getting-started.md#install-it)).
+(see [Getting started](getting-started.md#install-it)). Antigravity didn't work in 1.1.0
+and is fixed in 1.2.0. In Antigravity, how strictly the model shows the rewrite before
+any tool call depends on the model.
 
 **Where do I report a bug?**
 Open an issue at

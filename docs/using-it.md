@@ -45,10 +45,21 @@ outside facts every time.
 Text you paste in a block doesn't count toward the length. "Fix this" plus a big paste
 is still a short prompt.
 
+Requests in other languages and scripts, like Russian or Japanese, get the rewrite.
+Em-dashes, curly quotes and emoji don't count as words, so "ok — thanks" or a thumbs-up
+is still a short reply. In Codex, a `$skill-name` command is treated like a slash command,
+so there's no rewrite.
+
 The hook also doesn't send its full rules every time. You get them on the first message
 of a session. After that, Claude gets a one-line reminder. The full rules come back every
-25 messages, after `/compact` or `/clear`, and when you change the mode. In Antigravity
-CLI, the hook's words last only one turn, so it sends the full rules every turn.
+25 messages, after `/compact` or `/clear`, and when you change the mode.
+
+In Antigravity CLI, the hook acts once per message, on the first model call. Later calls
+in the same message get nothing. The full rules go once per conversation as a lasting
+system message, then a one-line reminder per message that lasts that turn. The
+every-25-messages re-send lasts one turn too, so copies don't pile up. In a live
+test, the model once made a tool call before showing the rewrite, so how strictly it
+"rewrites first" depends on the model.
 
 To change how much it does, see [Control and privacy](control-and-privacy.md#modes).
 

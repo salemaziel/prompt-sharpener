@@ -1,0 +1,11 @@
+{
+  "prompt-sharpener": {
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "bash hooks/sharpen.sh agy",
+        "timeout": 10
+      }
+    ]
+  }
+}

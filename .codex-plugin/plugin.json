@@ -1,6 +1,6 @@
 {
   "name": "prompt-sharpener",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Rewrites every request into a clear, complete prompt and shows it before work starts, with its guesses listed underneath; skips the rewrite for commands, short replies and automated messages, and uses one line for prompts that are already detailed. Quietly checks outside facts like versions, prices, commands and limits against current sources and flags only the ones it couldn't confirm. Modes: full, brief, ground, off. Runs in Claude Code, Codex and Antigravity. Fork of DeezleSince74/prompt-sharpener.",
   "author": {
     "name": "Via Del Web",

@@ -22,7 +22,7 @@ The plugin has four modes.
 | `full` (default) | The rewrite block and Assumptions line. One line for long, detailed prompts. Nothing for commands and short replies. | Yes |
 | `brief` | Always one "Taking this as: …" line. | Yes |
 | `ground` | No rewrite. | Yes |
-| `off` | Nothing. The hook adds no words. | No |
+| `off` | Nothing, except one "now off" line if earlier rules are in the session. | No |
 
 Switch with this command:
 
@@ -32,7 +32,8 @@ Switch with this command:
 
 - It changes the mode for the current project. Add `--global` to change it for every
   project.
-- `status` shows the mode in effect and where it came from.
+- `status` shows the mode in effect and where it came from, and the full path of the
+  project file it checked.
 - `reset` removes your setting and goes back to the default.
 - The change applies from your next message.
 
@@ -45,6 +46,14 @@ The mode comes from the first of these that is set:
 | 3 | The user file `~/.claude/prompt-sharpener.local.md` | Every project. The only file that can set `off`. |
 | 4 | The default | `full` |
 
+The project is found from `CLAUDE_PROJECT_DIR`, else the git root of the hook's working
+directory, else that directory (in agy, the first workspace path). The command uses the
+same rule.
+
+If you switch to `off` in the middle of a session, the hook sends one line once ("Prompt
+Sharpener is now off: ignore its earlier rules in this session ..."), then nothing.
+A session that starts in `off` gets nothing at all.
+
 Both files hold only settings at the top, between two `---` lines:
 
 ```markdown
@@ -55,7 +64,8 @@ full_every: 25
 ---
 ```
 
-`mode` is one of the four modes. `detail_words` is how long a structured prompt must be
+`mode` is one of the four modes. Names are not case-sensitive (`Brief` works). An unknown
+mode uses `full`, and the hook prints a note on stderr. `detail_words` is how long a structured prompt must be
 to get the one-line form. `full_every` is how many messages pass before the full rules
 are sent again. Use `0` to never repeat them.
 
@@ -66,7 +76,8 @@ your computer only. It never sends your message anywhere and never stores it.
 
 The only files it writes are the per-session state files in
 `~/.local/state/prompt-sharpener/`. Each holds the mode and a counter, never any of your
-message. They're deleted after 7 days.
+message. They're deleted after 7 days. In agy, each conversation gets a
+`session-<conversationId>` file in the same folder. Nothing else is written.
 
 There's one optional exception. If you set `PROMPT_SHARPENER_DEBUG_LOG=<path>`, the hook
 adds one line to that file for each message: the time, the event, the mode, what it

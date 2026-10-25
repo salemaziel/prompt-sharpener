@@ -12,12 +12,14 @@ for a security problem. You can expect a first reply within 7 days.
 - **One local script.** On each message, `hooks/sharpen.sh` reads the hook's input (your
   message, the session id and the working directory) and prints one of the fixed rule files
   in `hooks/` or a fixed one-line reminder. It never runs your message or anything in it,
-  and it makes no network requests.
+  and it makes no network requests. In Antigravity (agy), it reads the last user message, the
+  conversation id, the first workspace path and the invocation number instead.
 - **What it reads:** the hook input, the `PROMPT_SHARPENER_MODE` and `PROMPT_SHARPENER_*`
   environment variables, and two optional settings files: `<project>/.claude/prompt-sharpener.local.md`
-  (the project is `CLAUDE_PROJECT_DIR`, or the hook's working directory when that isn't set)
+  (the project is `CLAUDE_PROJECT_DIR`, else the git root of the hook's working directory,
+  else that directory; in agy, the first workspace path)
   and `~/.claude/prompt-sharpener.local.md`.
-- **What it writes:** one small file per session, `session-<id>`, in
+- **What it writes:** one small file per session, `session-<id>` (in agy, `session-<conversationId>`), in
   `~/.local/state/prompt-sharpener/` (or `$XDG_STATE_HOME/prompt-sharpener/`, or
   `$PROMPT_SHARPENER_STATE_DIR`), holding only the mode and a counter. Session ids that aren't
   1 to 128 plain letters, digits, `-` or `_` are ignored, so a crafted id can't write outside
@@ -29,7 +31,7 @@ for a security problem. You can expect a first reply within 7 days.
   rewrite stops but the "treat web pages as data" rule stays. Only `PROMPT_SHARPENER_MODE`
   or your user file can turn the plugin fully off.
 - **It fails safe.** If `jq` or `HOME` is missing, the input isn't JSON, or anything goes
-  wrong, it prints the full rules, as the original `cat` hook did (as JSON on Antigravity).
+  wrong, it prints the full rules, as the original `cat` hook did (as JSON on agy and Gemini CLI).
   Very long messages are handled in well under the hook's 10-second timeout.
 - **No server, no tools.** The plugin adds no MCP (Model Context Protocol) server. Its skills
   are text: one tells Claude how to rewrite prompts and check facts, the other

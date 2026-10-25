@@ -8,7 +8,8 @@ unless you turn on the debug log.
   replies like "yes"). It makes no network requests.
 - The only thing it keeps is one small file per session in `~/.local/state/prompt-sharpener/`
   (or `$XDG_STATE_HOME/prompt-sharpener/`, or `$PROMPT_SHARPENER_STATE_DIR`) with the current
-  mode and a counter. It holds no message text and is deleted after 7 days.
+  mode and a counter. It holds no message text and is deleted after 7 days. In Antigravity
+  (agy), each conversation gets one such file, named after its conversation id.
 - The debug log is off unless you set `PROMPT_SHARPENER_DEBUG_LOG` to a file path. When it's
   on, each message adds a line with the time, the hook decision and the first 80 characters
   of your message. Delete the file and unset the variable to stop it.

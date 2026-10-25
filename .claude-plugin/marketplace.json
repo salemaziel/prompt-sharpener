@@ -10,7 +10,7 @@
       "name": "prompt-sharpener",
       "source": "./",
       "description": "Rewrites requests into a clear prompt and shows it first (skipping commands and short replies); quietly checks outside facts and flags only the ones it couldn't confirm. Modes: full, brief, ground, off.",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "license": "MIT"
     }
   ]

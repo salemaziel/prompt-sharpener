@@ -1,7 +1,7 @@
 # Prompt Sharpener documentation
 
 Prompt Sharpener is a plugin for Claude Code, Cowork and Claude chat. It also works in
-Codex CLI and Antigravity CLI (new in this version). In Claude Code and Cowork it runs on
+Codex CLI and Antigravity CLI (new in this fork; Antigravity works from 1.2.0). In Claude Code and Cowork it runs on
 every message you send, though it skips short replies and commands. In Claude chat it runs
 when a request looks short or vague, or when you ask (see
 [Using it](using-it.md#where-it-runs)). It does two things:
