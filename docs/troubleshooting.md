@@ -14,7 +14,7 @@
   or WSL. Native PowerShell alone isn't supported. If `jq` is missing, the hook still
   prints the full rules, but install it to get the smart filter and the once-per-session
   behavior.
-- Check your mode with `/vdw-prompt-sharpener:sharpen status`. In `ground` and `off` mode,
+- Check your mode with `/prompt-sharpener:sharpen status`. In `ground` and `off` mode,
   there's no rewrite.
 
 ### The rewrite doesn't show for short replies or commands
@@ -23,7 +23,7 @@ That's by design. The hook skips the rewrite for slash commands (in Codex, also
 `$skill-name` commands), short replies like "yes" or "continue", single menu picks like
 "2", and automated messages. Em-dashes, curly quotes and emoji don't count as words, so
 "ok — thanks" or a thumbs-up is still a short reply. Claude still checks facts. To see the rewrite on everything, set the mode with
-`/vdw-prompt-sharpener:sharpen full`. See [Modes](control-and-privacy.md#modes).
+`/prompt-sharpener:sharpen full`. See [Modes](control-and-privacy.md#modes).
 
 ### I want to see what the hook decided
 
@@ -46,7 +46,7 @@ facts instead of flagging them.
 
 For a short request, the rewrite is a single "Taking this as: …" line. If you'd rather
 not see it at all for a while, ask Claude to stop showing it for this conversation. To
-change it for good, use `/vdw-prompt-sharpener:sharpen brief` or `ground`. Very short
+change it for good, use `/prompt-sharpener:sharpen brief` or `ground`. Very short
 replies and commands already skip it.
 
 ### Another plugin also asks for a rewrite

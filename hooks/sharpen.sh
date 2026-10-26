@@ -212,7 +212,7 @@ main() {
     [[ "$mode" == off && "$(lower "$(setting mode user)")" != off ]] && mode=ground
   fi
   if [[ -n "$mode" && ! "$mode" =~ ^(full|brief|ground|off)$ ]]; then
-    echo "vdw-prompt-sharpener: unknown mode '$mode'; using full (choose full, brief, ground or off)" >&2
+    echo "prompt-sharpener: unknown mode '$mode'; using full (choose full, brief, ground or off)" >&2
   fi
   [[ "$mode" =~ ^(full|brief|ground|off)$ ]] || mode=full
   detail_words="$(number_setting detail_words 80)"

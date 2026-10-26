@@ -68,7 +68,7 @@ Then the finished post follows.
   link, and the date checked.
 - **Turn the rewrite off for one conversation:** ask Claude to stop showing the
   rewrite. Fact-checking keeps running.
-- **Change the mode:** `/vdw-prompt-sharpener:sharpen brief` (add `--global` for every
+- **Change the mode:** `/prompt-sharpener:sharpen brief` (add `--global` for every
   project). It applies from your next message.
 - **Turn it off everywhere:** disable Prompt Sharpener with `/plugin`. Turn it back on
   the same way.
@@ -141,14 +141,14 @@ This fork is published in the Via Del Web marketplace. In Claude Code:
 
 ```
 /plugin marketplace add salemaziel/vdw-claude-plugins
-/plugin install vdw-prompt-sharpener@vdw
+/plugin install prompt-sharpener@vdw
 ```
 
 If you also have the original from the Claude plugin Directory installed, disable it so the
 two hooks don't both run.
 
 Codex: `codex plugin marketplace add salemaziel/vdw-claude-plugins`, then
-`codex plugin add vdw-prompt-sharpener@vdw`. Antigravity: `agy plugin install <path-to-this-folder>`
+`codex plugin add prompt-sharpener@vdw`. Antigravity: `agy plugin install <path-to-this-folder>`
 (checked with agy 1.4.7: it keeps the root `hooks.json`; skills 2, hooks 1).
 
 Start a new session after installing, since a running session keeps the plugins it
@@ -165,7 +165,7 @@ started with.
 | `skills/prompt-sharpener/SKILL.md` | The core method (about 1,200 words): modes, inline mode, rewrite essentials, and how to ground facts quietly. When a hook is active, it follows the hook's mode instead of rewriting on its own. |
 | `skills/prompt-sharpener/references/` | Longer guides: general prompting techniques, coding prompts, and the grounding checklist with the verify-mode report. |
 | `skills/prompt-sharpener/references/standalone-method.md` | The full five-step method and its worked example. Read when someone asks for an improved prompt itself. |
-| `skills/sharpen/SKILL.md` | `/vdw-prompt-sharpener:sharpen`: shows or changes the mode. |
+| `skills/sharpen/SKILL.md` | `/prompt-sharpener:sharpen`: shows or changes the mode. |
 | `.codex-plugin/plugin.json` | The Codex manifest; it uses the same skills and hooks. |
 | `tests/test-hook.sh` | Checks the hook's decisions for each kind of message, mode and session state, with no model calls (124 checks). |
 | `.github/workflows/test.yml` | Runs the hook tests on Linux and on macOS with its stock bash 3.2. Not run yet; the first run is on the next push. |

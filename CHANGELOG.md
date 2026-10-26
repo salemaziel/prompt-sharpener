@@ -1,16 +1,5 @@
 # Changelog
 
-## 1.3.0 — 2026-10-26 (Via Del Web fork)
-
-- Renamed the plugin to `vdw-prompt-sharpener` (display name "VDW Prompt Sharpener"), so it no
-  longer shares a name with the original in the Claude plugin Directory. Install it as
-  `vdw-prompt-sharpener@vdw`; the mode command is now `/vdw-prompt-sharpener:sharpen` (Codex:
-  `$vdw-prompt-sharpener:sharpen`). An install under the old name `prompt-sharpener@vdw` isn't
-  updated; install the new name and remove the old one.
-- Unchanged: the skill names, the `PROMPT_SHARPENER_*` environment variables, the
-  `prompt-sharpener.local.md` settings files and the state folder, so existing settings keep
-  working.
-
 ## 1.2.0 — 2026-10-25 (Via Del Web fork)
 
 - Fixed Antigravity (agy). It was broken in 1.1.0: agy has no `UserPromptSubmit` event, so the

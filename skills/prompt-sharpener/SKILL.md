@@ -71,7 +71,7 @@ say to skip the rewrite (a slash command, a short reply such as "yes", or an aut
 message) or to use the one-line `Taking this as: ...` form (a prompt that is already
 detailed). In `brief` mode, always use the one-line form; in `ground` mode, don't
 rewrite at all. Grounding applies in every mode except `off`. To change the mode, the
-person runs `/vdw-prompt-sharpener:sharpen`.
+person runs `/prompt-sharpener:sharpen`.
 
 **Bigger rebuilds.** When the person wants a prompt they will reuse (a system prompt,
 an agent or pipeline prompt, a template) or a prompt tuned for a specific model,

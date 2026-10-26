@@ -1,5 +1,5 @@
 {
-  "vdw-prompt-sharpener": {
+  "prompt-sharpener": {
     "PreInvocation": [
       {
         "type": "command",
