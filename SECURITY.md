@@ -35,7 +35,7 @@ for a security problem. You can expect a first reply within 7 days.
   Very long messages are handled in well under the hook's 10-second timeout.
 - **No server, no tools.** The plugin adds no MCP (Model Context Protocol) server. Its skills
   are text: one tells Claude how to rewrite prompts and check facts, the other
-  (`/prompt-sharpener:sharpen`) edits the settings file above when you run it.
+  (`/vdw-prompt-sharpener:sharpen`) edits the settings file above when you run it.
 - **Web pages can't steer it.** When Claude checks a fact online, the directions tell it to treat
   page content as data, never as instructions, and to tell you if a page tries to direct it.
 - **Nothing overrides you.** The directions tell Claude to skip the rewrite when you ask it

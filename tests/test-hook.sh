@@ -37,10 +37,10 @@ check "UserPromptSubmit runs sharpen.sh"
 check "SessionStart compact|clear runs sharpen.sh reset"
 # Antigravity reads hooks.json at the plugin root, in its own named-hook format, with
 # commands run from the plugin root; plugin.json at the root makes it a native agy plugin.
-[[ "$(jq -r '."prompt-sharpener".PreInvocation[0].command' "$here/hooks.json")" == "bash hooks/sharpen.sh agy" ]] &&
-  [[ "$(jq -r 'keys | join(",")' "$here/hooks.json")" == "prompt-sharpener" ]]
+[[ "$(jq -r '."vdw-prompt-sharpener".PreInvocation[0].command' "$here/hooks.json")" == "bash hooks/sharpen.sh agy" ]] &&
+  [[ "$(jq -r 'keys | join(",")' "$here/hooks.json")" == "vdw-prompt-sharpener" ]]
 check "root hooks.json runs sharpen.sh on agy PreInvocation, and holds nothing else"
-[[ "$(jq -r .name "$here/plugin.json")" == prompt-sharpener ]]; check "root plugin.json names the plugin for agy"
+[[ "$(jq -r .name "$here/plugin.json")" == vdw-prompt-sharpener ]]; check "root plugin.json names the plugin for agy"
 for f in plugin.json .claude-plugin/plugin.json .codex-plugin/plugin.json; do
   [[ "$(jq -r .version "$here/$f")" == "$(jq -r .version "$here/.claude-plugin/plugin.json")" ]]; check "$f version matches"
 done
@@ -54,7 +54,7 @@ for f in rules.txt rules-brief.txt rules-ground.txt; do
 done
 [[ "$full" == *"Before any tool call"* ]]; check "asks for the rewrite before any tool call"
 [[ "$full" == *'"Assumptions:"'* ]]; check "asks for an Assumptions line"
-[[ "$full" == *"prompt-sharpener:prompt-sharpener"* ]]; check "names the skill by its full name"
+[[ "$full" == *"vdw-prompt-sharpener:prompt-sharpener"* ]]; check "names the skill by its full name"
 [[ "$full" == *"Don't announce the checks"* ]]; check "grounds facts quietly"
 [[ "$full" == *"mark it unverified"* ]]; check "surfaces only unverified facts"
 [[ "$full" == *"asked in this conversation to stop"* ]]; check "honors a request to stop the rewrite"
@@ -128,9 +128,9 @@ codex() {
   jq -n --arg p "$1" --arg s "$2" '{session_id: $s, turn_id: "t1", cwd: "/tmp", prompt: $p, hook_event_name: "UserPromptSubmit"}' | bash "$script"
 }
 codex "warm up" c1 >/dev/null
-[[ "$(codex '$prompt-sharpener:sharpen brief' c1)" == *"no rewrite for this prompt"* ]]; check "Codex: \$skill commands are ground-only"
+[[ "$(codex '$vdw-prompt-sharpener:sharpen brief' c1)" == *"no rewrite for this prompt"* ]]; check "Codex: \$skill commands are ground-only"
 [[ "$(codex '$HOME is wrong in my shell' c1)" != *"no rewrite for this prompt"* ]]; check "Codex: \$HOME in a sentence is still rewritten"
-! is_ground '$prompt-sharpener:sharpen brief'; check "Claude Code: a leading \$word is ordinary text"
+! is_ground '$vdw-prompt-sharpener:sharpen brief'; check "Claude Code: a leading \$word is ordinary text"
 long="$(yes word | head -90 | tr '\n' ' ')"
 [[ "$(hook "$(printf 'Refactor the auth module.\n- keep the API\n- add tests\n%s' "$long")" f1)" == *'"Taking this as: ..." form'* ]]
 check "a long, structured prompt gets the one-line form"

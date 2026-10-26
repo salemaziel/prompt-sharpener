@@ -52,7 +52,7 @@ Arguments: `$ARGUMENTS`
    frontmatter block at the top and keep the rest below it. If
    `PROMPT_SHARPENER_MODE` is set, say that it still wins until the CLI is restarted
    without it. For `off` without `--global`, write the project file anyway but say
-   it will act as `ground` there, and that `/prompt-sharpener:sharpen off --global`
+   it will act as `ground` there, and that `/vdw-prompt-sharpener:sharpen off --global`
    turns it fully off.
 4. **reset**: remove the `mode:` line from the chosen file. Delete the file only if
    its frontmatter is then empty and nothing follows it.

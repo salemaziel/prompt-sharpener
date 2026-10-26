@@ -16,7 +16,7 @@ session, type:
 
 ```
 /plugin marketplace add salemaziel/vdw-claude-plugins
-/plugin install prompt-sharpener@vdw
+/plugin install vdw-prompt-sharpener@vdw
 ```
 
 The first command adds the marketplace, which is a list of plugins Claude Code can
@@ -27,7 +27,7 @@ claude plugin marketplace add salemaziel/vdw-claude-plugins
 ```
 
 ```bash
-claude plugin install prompt-sharpener@vdw
+claude plugin install vdw-prompt-sharpener@vdw
 ```
 
 **In Codex CLI (new).** Add the same marketplace, then install the plugin:
@@ -37,7 +37,7 @@ codex plugin marketplace add salemaziel/vdw-claude-plugins
 ```
 
 ```bash
-codex plugin add prompt-sharpener@vdw
+codex plugin add vdw-prompt-sharpener@vdw
 ```
 
 **In Antigravity CLI, `agy` (new).** The plugin's folder has its own agy manifest

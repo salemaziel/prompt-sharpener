@@ -27,7 +27,7 @@ The plugin has four modes.
 Switch with this command:
 
 ```
-/prompt-sharpener:sharpen full|brief|ground|off|status|reset [--global]
+/vdw-prompt-sharpener:sharpen full|brief|ground|off|status|reset [--global]
 ```
 
 - It changes the mode for the current project. Add `--global` to change it for every
